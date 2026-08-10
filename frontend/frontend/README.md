@@ -2,11 +2,11 @@
 
 ## Features to Add
 
-- Seperate fetch logic and utility functions.
-- Expired tasks have a symbol or mark on their component, something red.
-- Completed tasks have a symbol or mark on their component, something green.
+- Seperate fetch logic and utility functions. " ✓"
+- Expired tasks have a symbol or mark on their component, something red. " ✓"
+- Completed tasks have a symbol or mark on their component, something green. " ✓"
 - Change color theme, light and dark theme.
-- Maybe add Redux instead of all this state.
+- Maybe add Redux instead of all this state. " ✕"
 
 CURRENT APP
 

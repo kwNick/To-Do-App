@@ -13,7 +13,7 @@ export default function TaskDetails({selectedTask}:{selectedTask: Task | null}){
                   <p><strong>Deadline:</strong> {selectedTask.deadline} {selectedTask.deadlineTime}</p>
                   <p><strong>Priority:</strong> {selectedTask.priority}</p>
                   <p><strong>Status:</strong> {selectedTask.status}</p>
-                  <p>{selectedTask.completed ? <strong>Completed</strong> : <strong>Incomplete</strong>}</p>
+                  <p>{selectedTask.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete</strong>}</p>
                 </div>
               ):(
                 <p>Select a task to see details</p>

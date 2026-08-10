@@ -23,33 +23,35 @@ export default function TaskItem({
 
     return (
       <div className={`taskItem `}
-        key={task.id} onClick={handleSelect}>
+        key={task.id} >
           <div className={`taskText 
                 ${selectedTaskID === task.id ? "selectedTask" : ""} 
                 ${task.priority + " " + task?.status?.replace(" ", "").toLowerCase()} 
                 ${task.completed ? 'completed' : 'incomplete'}`}
+              onClick={handleSelect}
             >
-            <p style={{color: "black", maxWidth: "100%"}}>
+            <p style={{color: "black", width: "33%", maxWidth: "33%"}}>
               {task.name}
             </p>
-            <p style={{ maxWidth: "100%", justifyContent: "start"}}>
-              Complete: 
+            <p style={{ width: "33%", maxWidth: "33%"}}>
+              {/* Complete:  */}
               <span style={{color: "green"}}>
-                {task.completed && " ✅ Completed"}
-                {task.completed && " ✓"}
+                {task.completed && " Completed ✅"}
+                {/* {task.completed && " ✓"} */}
               </span>
               <span style={{color: "red"}}>
-                {!task.completed && " ❌ Not Complete ✕" }
+                {!task.completed && " Not Complete ❌" }
+                {/* {!task.completed && " ✕"} */}
               </span>
             </p>
-            <p style={{maxWidth: "100%", justifyContent: "start"}}>
-              Status:
+            <p style={{width: "33%", maxWidth: "33%"}}>
+              {/* Status: */}
               <span style={{color: "red"}}>
                 {task.status == "Expired" && " ❌ Expired" }
               </span>
-              <span style={{color: ""}}>
+              {/* <span style={{color: ""}}>
                 {task.status != "Expired" && " In Progress"}
-              </span>
+              </span> */}
             </p>
           </div>
 

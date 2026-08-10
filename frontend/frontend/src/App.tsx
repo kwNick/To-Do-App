@@ -165,7 +165,7 @@ function App() {
         <TaskTabs setActiveTab={setActiveTab}/>
 
         <div className="taskListContent">
-          <div className="toDoTasks">
+          <div className="tasksContainer">
             <h2>{activeTab}</h2>
             {filteredTasks.map((task: Task) => {
               return (
