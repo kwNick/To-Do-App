@@ -8,6 +8,52 @@
 - Change color theme, light and dark theme.
 - Maybe add Redux instead of all this state.
 
+CURRENT APP
+
+    ↓
+
+1. Clean up App.tsx
+
+    ↓
+
+2. taskService.ts
+
+    ↓
+
+3. taskUtils.ts
+
+    ↓
+
+4. selectedTaskId instead of selectedTask
+
+    ↓
+
+5. Loading + error states
+
+    ↓
+
+6. Form validation
+
+    ↓
+
+7. Expiration system
+
+    ↓
+
+8. React Testing Library + Jest
+
+    ↓
+
+9. Optimistic updates
+
+    ↓
+
+10. React Router
+
+    ↓
+
+11. Authentication
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

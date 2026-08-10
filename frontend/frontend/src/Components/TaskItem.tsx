@@ -24,13 +24,35 @@ export default function TaskItem({
     return (
       <div className={`taskItem `}
         key={task.id} onClick={handleSelect}>
-          <p className={`taskText 
+          <div className={`taskText 
                 ${selectedTaskID === task.id ? "selectedTask" : ""} 
                 ${task.priority + " " + task?.status?.replace(" ", "").toLowerCase()} 
                 ${task.completed ? 'completed' : 'incomplete'}`}
             >
-            {task.name}
-          </p>
+            <p style={{color: "black", maxWidth: "100%"}}>
+              {task.name}
+            </p>
+            <p style={{ maxWidth: "100%", justifyContent: "start"}}>
+              Complete: 
+              <span style={{color: "green"}}>
+                {task.completed && " ✅ Completed"}
+                {task.completed && " ✓"}
+              </span>
+              <span style={{color: "red"}}>
+                {!task.completed && " ❌ Not Complete ✕" }
+              </span>
+            </p>
+            <p style={{maxWidth: "100%", justifyContent: "start"}}>
+              Status:
+              <span style={{color: "red"}}>
+                {task.status == "Expired" && " ❌ Expired" }
+              </span>
+              <span style={{color: ""}}>
+                {task.status != "Expired" && " In Progress"}
+              </span>
+            </p>
+          </div>
+
           <div className="taskButtons">
             <button 
             className="finishButton" 
