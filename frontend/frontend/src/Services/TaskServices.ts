@@ -12,6 +12,12 @@ export const getTasks = async (): Promise<Task[]> => {
   return response.json();
 };
 
+// export const refreshTasks = async () => {
+//     const data = await getTasks();
+//     // setTasks(data);
+//     return data;
+//   };
+
 export const createTask = async (task: Omit<Task, "id">) => {
     const response = await fetch(API_URL, {
         method: "POST",

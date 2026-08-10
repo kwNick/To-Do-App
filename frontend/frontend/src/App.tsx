@@ -34,11 +34,11 @@ function App() {
 
   });
 
-  const refreshTasks = async () => {
-    const data = await getTasks();
-    setTasks(data);
-    return data;
-  };
+  // const refreshTasks = async () => {
+  //   const data = await getTasks();
+  //   setTasks(data);
+  //   return data;
+  // };
 
   const handleDeleteTask = async (id: number) => {
     const thisTask = tasks.find((task) => task.id == id);
@@ -51,7 +51,7 @@ function App() {
     try{
       await deleteTask(id);
       
-      await refreshTasks(); // Maybe don't need this if your doing optimistic updates
+      // await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
       if(id === selectedTaskID){
         setSelectedTaskID(null);
@@ -86,7 +86,7 @@ function App() {
       
       // setSelectedTaskID(null);
 
-      await refreshTasks(); // Maybe don't need this if your doing optimistic updates
+      // await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
     }catch(error){
       console.error("Error finishing task:", error);
@@ -124,7 +124,7 @@ function App() {
       const newTask = { name, description, deadline, deadlineTime, priority, status, completed: false };
 
       // Optimistic Update
-      setTasks(prevTasks => [...prevTasks, {...newTask, id: tasks.length+1}]);
+      setTasks(prevTasks => [...prevTasks, {...newTask, id: (tasks.length !== 0 ? tasks[tasks.length - 1].id + 1 : 1)}]);
 
       setError(""); // Clear any previous error message
       try{
@@ -142,7 +142,7 @@ function App() {
         // const data = await response.json();
         // setTasks(data);
 
-        await refreshTasks(); // Maybe don't need this if your doing optimistic updates
+        // await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
         // setTasks([...tasks, { id: tasks.length + 1, name, description }]);
         // setName(""); //resets data on refresh
@@ -194,7 +194,9 @@ function App() {
     const fetchTasksOnMount = async () => {
       try {
         setLoading(true);
-        await refreshTasks();
+        // await refreshTasks();
+        const data = await getTasks();
+        setTasks(data);
       } catch (error) {
         console.error("Error Fetching Tasks: ", error);
       }finally{
