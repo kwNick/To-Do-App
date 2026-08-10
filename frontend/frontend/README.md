@@ -60,6 +60,8 @@ CURRENT APP
 
 11. Authentication
 
+## React config template details
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
