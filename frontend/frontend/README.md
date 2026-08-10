@@ -50,7 +50,7 @@ CURRENT APP
 
     ↓
 
-9. Optimistic updates
+9. Optimistic updates " ✓"
 
     ↓
 

@@ -41,10 +41,17 @@ function App() {
   };
 
   const handleDeleteTask = async (id: number) => {
+    const thisTask = tasks.find((task) => task.id == id);
+
+    if(!thisTask) return;
+
+    // Optimistic Update
+    setTasks(prevTasks => prevTasks.filter(t => t !== thisTask));
+
     try{
       await deleteTask(id);
       
-      await refreshTasks();
+      await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
       if(id === selectedTaskID){
         setSelectedTaskID(null);
@@ -52,6 +59,9 @@ function App() {
 
     }catch(error){
       console.error("Error deleting task:", error);
+
+      // Undo Optimistic Update
+      setTasks(prevTasks => [...prevTasks, thisTask]);
     }
   };
   
@@ -59,6 +69,15 @@ function App() {
     const thisTask = tasks.find((task) => task.id == id);
 
     if(!thisTask) return;
+
+    // Optimistic update
+    setTasks(prevTasks =>
+    prevTasks.map(task =>
+      task.id === id
+        ? { ...task, completed: !task.completed }
+        : task
+      )
+    );
     
     try{
       await updateTask(id, {
@@ -67,10 +86,19 @@ function App() {
       
       // setSelectedTaskID(null);
 
-      await refreshTasks();
+      await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
     }catch(error){
       console.error("Error finishing task:", error);
+
+      // Optimistic update undo
+      setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === id
+          ? { ...task, completed: thisTask.completed }
+          : task
+        )
+      );
     }
   };
 
@@ -95,6 +123,9 @@ function App() {
       const status = calculateStatus(deadline, deadlineTime);
       const newTask = { name, description, deadline, deadlineTime, priority, status, completed: false };
 
+      // Optimistic Update
+      setTasks(prevTasks => [...prevTasks, {...newTask, id: tasks.length+1}]);
+
       setError(""); // Clear any previous error message
       try{
         await createTask(newTask);
@@ -111,13 +142,16 @@ function App() {
         // const data = await response.json();
         // setTasks(data);
 
-        await refreshTasks();
+        await refreshTasks(); // Maybe don't need this if your doing optimistic updates
 
         // setTasks([...tasks, { id: tasks.length + 1, name, description }]);
         // setName(""); //resets data on refresh
 
       }catch(error){
         console.error("Error adding task:", error);
+
+        // Undo Optimistic Update
+        setTasks(prevTasks => prevTasks.filter(t => t !== newTask));
       }
   };
 
