@@ -2,41 +2,47 @@
 
 ## Features to Add
 
+- Change color theme, light and dark theme.
+
+- Maybe have the status be "In Progress", "Expired" and "Completed" instead of extra type field. So there isn't two values to show on each task. Not Complete/Complete and Expired
+
+- Is it better to allow user to add a task that is already expired?
+
 - Seperate fetch logic and utility functions. " ✓"
 - Expired tasks have a symbol or mark on their component, something red. " ✓"
 - Completed tasks have a symbol or mark on their component, something green. " ✓"
-- Change color theme, light and dark theme.
 - Maybe add Redux instead of all this state. " ✕"
+     Redux doesn't seem necessary for this application. Not complex deep passed state.
 
 CURRENT APP
 
     ↓
 
-1. Clean up App.tsx
+1. Clean up App.tsx " ✓"
 
     ↓
 
-2. taskService.ts
+2. taskService.ts " ✓"
 
     ↓
 
-3. taskUtils.ts
+3. taskUtils.ts " ✓"
 
     ↓
 
-4. selectedTaskId instead of selectedTask
+4. selectedTaskId instead of selectedTask " ✓"
 
     ↓
 
-5. Loading + error states
+5. Loading + error states " ✓"
 
     ↓
 
-6. Form validation
+6. Form validation " ✓"
 
     ↓
 
-7. Expiration system
+7. Expiration system " ✓"
 
     ↓
 

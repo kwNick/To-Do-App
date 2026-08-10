@@ -18,6 +18,7 @@ function App() {
   const [selectedTaskID, setSelectedTaskID] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"To-Do" | "Completed" | "All">("To-Do");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
 
   const filteredTasks = sortTasks(tasks).filter(task => {
@@ -75,12 +76,22 @@ function App() {
 
   const handleAddTask = async () => {
     const trimmedName = name.trim();
+    if(!trimmedName){
+      setError("Task Name is Required!");
+      return;
+    }
     
     if(tasks.find(t => t.name.toLowerCase() === trimmedName.toLowerCase())){
       // alert("Task already exists!");
       setError("Task already exists!");
       return;
     }
+
+    if(calculateStatus(deadline, deadlineTime) == "Expired"){
+      setError("Task Deadline must be a future date!");
+      return;
+    }
+
       const status = calculateStatus(deadline, deadlineTime);
       const newTask = { name, description, deadline, deadlineTime, priority, status, completed: false };
 
@@ -115,7 +126,7 @@ function App() {
       setError("");
     };
     remErrors();
-  }, [name]);
+  }, [name, deadline, deadlineTime]);
   
   useEffect(() => {
     const checkStatus = setInterval(() => {
@@ -148,9 +159,12 @@ function App() {
   useEffect(() =>{
     const fetchTasksOnMount = async () => {
       try {
+        setLoading(true);
         await refreshTasks();
       } catch (error) {
         console.error("Error Fetching Tasks: ", error);
+      }finally{
+        setLoading(false);
       }
     };
 
@@ -167,17 +181,20 @@ function App() {
         <div className="taskListContent">
           <div className="tasksContainer">
             <h2>{activeTab}</h2>
-            {filteredTasks.map((task: Task) => {
-              return (
-                <TaskItem 
-                  task={task} 
-                  selectedTaskID={selectedTaskID} 
-                  setSelectedTaskID={setSelectedTaskID} 
-                  handleFinishTask={handleFinishTask} 
-                  handleDeleteTask={handleDeleteTask}
-                />
+              {loading ? (
+                  <p>Loading tasks...</p>
+                ) : (filteredTasks.map((task: Task) => {
+                  return (
+                    <TaskItem 
+                      task={task} 
+                      selectedTaskID={selectedTaskID} 
+                      setSelectedTaskID={setSelectedTaskID} 
+                      handleFinishTask={handleFinishTask} 
+                      handleDeleteTask={handleDeleteTask}
+                    />
+                  )}
+                )
               )}
-            )}
           </div>
 
         </div>

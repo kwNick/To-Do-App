@@ -49,7 +49,7 @@ export default function AddTaskForm(
                 />
                 <input
                     type="text"
-                    pattern="\d{2}:\d{2}\s*(AM|PM)"
+                    pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
                     value={deadlineTime}
                     onChange={(e) => setDeadlineTime(e.target.value)}
                     placeholder="(HH:MM AM/PM)"
