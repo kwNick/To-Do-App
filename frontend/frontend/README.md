@@ -46,7 +46,7 @@ CURRENT APP
 
     ↓
 
-8. React Testing Library + Jest
+8. React Testing Library + Jest " ✓"
 
     ↓
 
