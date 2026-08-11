@@ -10,8 +10,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/tasks" element={<TasksPage />} />
-        <Route path="/tasks/:id" element={<TaskDetailsPage />} />
         <Route path="/tasks/add" element={<AddTaskPage />} />
+        <Route path="/tasks/:id" element={<TaskDetailsPage />} />
 
         <Route
           path="*"

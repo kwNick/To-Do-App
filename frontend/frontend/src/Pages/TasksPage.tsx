@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const TasksPage = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [activeTab, setActiveTab] = useState<"To-Do" | "Completed" | "All">("To-Do");
-    const [selectedTaskID, setSelectedTaskID] = useState<number | null>(null);
+    // const [selectedTaskID, setSelectedTaskID] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
 
     const filteredTasks = sortTasks(tasks).filter(task => {
@@ -73,9 +73,9 @@ const TasksPage = () => {
         try{
             await deleteTask(id);
 
-            if(id === selectedTaskID){
-            setSelectedTaskID(null);
-            }
+            // if(id === selectedTaskID){
+            // setSelectedTaskID(null);
+            // }
 
         }catch(error){
             console.error("Error deleting task:", error);
@@ -88,24 +88,24 @@ const TasksPage = () => {
     useEffect(() => {
         const checkStatus = setInterval(() => {
             setTasks(prevTasks => {
-            return prevTasks.map(task => {
+              return prevTasks.map(task => {
                 const newStatus = calculateStatus(
                 task.deadline,
                 task.deadlineTime
                 );
 
                 if (newStatus !== task.status) {
-                updateTask(task.id, {status: newStatus})
-                    .catch(error => {console.error("Error updating task status:", error);});
+                  updateTask(task.id, {status: newStatus})
+                      .catch(error => {console.error("Error updating task status:", error);});
 
-                return {
-                    ...task,
-                    status: newStatus
-                };
+                  return {
+                      ...task,
+                      status: newStatus
+                  };
                 }
 
                 return task;
-            });
+              });
             });
             
         }, 1000);
@@ -150,6 +150,7 @@ const TasksPage = () => {
                 ) : (filteredTasks.map((task: Task) => {
                   return (
                     <TaskItem 
+                      key={task.id}
                       task={task} 
                       handleFinishTask={handleFinishTask} 
                       handleDeleteTask={handleDeleteTask}

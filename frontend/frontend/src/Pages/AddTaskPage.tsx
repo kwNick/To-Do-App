@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import AddTaskForm from "../Components/AddTaskForm";
+// import AddTaskForm from "../Components/AddTaskForm";
 import { createTask, getTasks } from "../Services/TaskServices";
 import { calculateStatus } from "../Utils/TaskUtils";
 import type { Task } from "../Types/Types";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddTaskPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -15,15 +16,17 @@ const AddTaskPage = () => {
 
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleAddTask = async () => {
     const trimmedName = name.trim();
     if(!trimmedName){
-      setError("Task Name is Required!");
+      setError("Task Name cannot only be space characters!");
       return;
     }
     
     if(tasks.find(t => t.name.toLowerCase() === trimmedName.toLowerCase())){
-      setError("Task already exists!");
+      setError("Task with that name already exists!");
       return;
     }
 
@@ -32,36 +35,26 @@ const AddTaskPage = () => {
       return;
     }
 
-      const status = calculateStatus(deadline, deadlineTime);
-      const newTask = { name, description, deadline, deadlineTime, priority, status, completed: false };
+    const status = calculateStatus(deadline, deadlineTime);
+    const newTask = { name: trimmedName, description, deadline, deadlineTime, priority, status, completed: false };
 
-      // Optimistic Update
-      setTasks(prevTasks => [...prevTasks, {...newTask, id: (tasks.length !== 0 ? tasks[tasks.length - 1].id + 1 : 1)}]);
+    setError(""); // Clear any previous error message
+    try{
+      await createTask(newTask);
 
-      setError(""); // Clear any previous error message
-      try{
-        await createTask(newTask);
+      setName("");
+      setDescription("");
+      setDeadline("");
+      setDeadlineTime("");
+      setPriority("Low");
 
-        setName("");
-        setDescription("");
-        setDeadline("");
-        setDeadlineTime("");
-        setPriority("Low");
+      navigate('/tasks');
 
-      }catch(error){
-        console.error("Error adding task:", error);
-
-        // Undo Optimistic Update
-        setTasks(prevTasks => prevTasks.filter(t => t !== newTask));
-      }
+    }catch(error){
+      console.error("Error adding task:", error);
+      setError("Failed to add task: "+error);
+    }
   };
-
-  useEffect(() => {
-      const remErrors = async () => {
-      setError("");
-      };
-      remErrors();
-  }, [name, deadline, deadlineTime]);
 
   useEffect(() =>{
       const fetchTasksOnMount = async () => {
@@ -81,7 +74,70 @@ const AddTaskPage = () => {
   }, []);
   
   return (
-    <AddTaskForm handleAddTask={handleAddTask} name={name} description={description} deadline={deadline}  deadlineTime={deadlineTime} priority={priority} error={error} setName={setName} setDescription={setDescription} setDeadline={setDeadline} setDeadlineTime={setDeadlineTime} setPriority={setPriority}/>
-  )
-}
+    // <AddTaskForm handleAddTask={handleAddTask} name={name} description={description} deadline={deadline}  deadlineTime={deadlineTime} priority={priority} error={error} setName={setName} setDescription={setDescription} setDeadline={setDeadline} setDeadlineTime={setDeadlineTime} setPriority={setPriority}/>
+
+    <div className="addTaskForm">
+            <div>
+              <Link to="/tasks">Tasks</Link>
+            </div>
+            <h1>Add Task</h1>
+
+            <form className="addTaskInput" onSubmit={(e) => {
+                e.preventDefault();
+                handleAddTask();
+                }}>
+
+                <input
+                type="text"
+                value={name}
+                required
+                onChange={(e) => {setName(e.target.value); setError("");}}
+                placeholder="Enter name"
+                />
+
+                <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter description"
+                />
+
+                <div className="deadlineInput">
+                <input
+                    type="text"
+                    pattern="\d{2}/\d{2}/\d{4}"
+                    value={deadline}
+                    onChange={(e) => {setDeadline(e.target.value); setError("");}}
+                    placeholder="(MM/DD/YYYY)"
+                />
+                <input
+                    type="text"
+                    pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
+                    value={deadlineTime}
+                    onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
+                    placeholder="(HH:MM AM/PM)"
+                />
+                </div>
+
+                {/* <input
+                type="text"
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+                placeholder="Priority (Low, Medium, High)"
+                /> */}
+                <select value={priority} onChange={(e) => setPriority(e.target.value as Task["priority"])}>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                </select>
+
+                <button type="submit">
+                    Add Task
+                </button>
+            </form>
+                {error && <p className="error">{error}</p>}
+
+        </div>
+  );
+};
 export default AddTaskPage
