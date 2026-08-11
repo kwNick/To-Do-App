@@ -12,6 +12,16 @@ export const getTasks = async (): Promise<Task[]> => {
   return response.json();
 };
 
+export const getTask = async (id: string): Promise<Task> => {
+    const response = await fetch(`${API_URL}/${id}`);
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch task!");
+    }
+
+  return response.json();
+}
+
 // export const refreshTasks = async () => {
 //     const data = await getTasks();
 //     // setTasks(data);

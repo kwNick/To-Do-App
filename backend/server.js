@@ -19,6 +19,17 @@ app.get("/tasks", (req, res) => {
     res.json(tasks);
 });
 
+app.get("/tasks/:id", (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find(task => task.id === taskId);
+
+    if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.json(task);
+});
+
 app.patch("/tasks/:id", (req, res) => {
     const taskId = parseInt(req.params.id);
     const task = tasks.find(task => task.id === taskId);
@@ -49,7 +60,7 @@ app.delete("/tasks/:id", (req, res) => {
 // POST endpoint
 app.post("/tasks", (req, res) => {
     const taskId = tasks.length !== 0 ? tasks[tasks.length - 1].id + 1 : 1;
-    console.log("Received task:", req.body);
+    // console.log("Received task:", req.body);
 
     const newTask = {
         id: taskId,

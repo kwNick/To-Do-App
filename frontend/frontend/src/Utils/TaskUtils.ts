@@ -19,20 +19,6 @@ export const sortTasks = (tasks: Task[]) => {
     });
 };
 
-// Uses React state so it stays in the app
-// export const filteredTasks = sortTasks(tasks).filter(task => {
-//     if(activeTab === "To-Do") {
-//         return (!task.completed);
-//     }
-
-//     if(activeTab === "Completed") {
-//         return task.completed;
-//     }
-
-//     return true;
-
-// });
-
 export const calculateStatus = (deadline: string, deadlineTime: string): Task["status"] => {
 
     const currentTime = new Date();
