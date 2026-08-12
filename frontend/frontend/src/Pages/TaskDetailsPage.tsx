@@ -55,26 +55,28 @@ function TaskDetailsPage() {
 
   return (
     <div className="taskDetails">
-            <div>
-              <Link to="/tasks">Tasks</Link>
-            </div>
-            <h1>Task Details</h1>
+      
+      <div className="tasksLink">
+        <Link to="/tasks">Tasks</Link>
+      </div>
 
-            <div >
-              {task ? (
-                <div className="taskDetailsContent">
-                  <p><strong>Name:</strong> {task.name}</p>
-                  <p><strong>Description:</strong> {task.description}</p>
-                  <p><strong>Deadline:</strong> {task.deadline} {task.deadlineTime}</p>
-                  <p><strong>Priority:</strong> {task.priority}</p>
-                  <p><strong>Status:</strong> {task.status}</p>
-                  <p>{task.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete</strong>}</p>
-                </div>
-              ):(
-                <p>Select a task to see details</p>
-              )}
-            </div>
+      <h1>Task Details</h1>
+
+      <div >
+        {task ? (
+          <div className="taskDetailsContent">
+            <p><strong>Name:</strong> {task.name}</p>
+            <p><strong>Description:</strong> {task.description}</p>
+            <p><strong>Deadline:</strong> {task.deadline} {task.deadlineTime}</p>
+            <p><strong>Priority:</strong> {task.priority}</p>
+            <p><strong>Status:</strong> {task.status}</p>
+            <p>{task.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete</strong>}</p>
           </div>
+        ):(
+          <p>Select a task to see details</p>
+        )}
+      </div>
+    </div>
   );
 }
 

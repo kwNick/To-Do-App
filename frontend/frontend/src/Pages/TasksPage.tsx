@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 const TasksPage = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [activeTab, setActiveTab] = useState<"To-Do" | "Completed" | "All">("To-Do");
-    // const [selectedTaskID, setSelectedTaskID] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
 
     const filteredTasks = sortTasks(tasks).filter(task => {
@@ -135,15 +134,15 @@ const TasksPage = () => {
       <div className="taskList">
         <h1>Tasks</h1>
 
-        <TaskTabs setActiveTab={setActiveTab}/>
+        <TaskTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
 
         <div className="taskListContent">
-          <div>
-            <Link to={`/tasks/add`}>
-              Add Task +
-            </Link>
-          </div>
           <div className="tasksContainer">
+            <div className="addTaskLink">
+              <Link to={`/tasks/add`}>
+              Add Task +
+              </Link>
+            </div>
             <h2>{activeTab}</h2>
               {loading ? (
                   <p>Loading tasks...</p>

@@ -1,15 +1,23 @@
-export default function TaskTabs({setActiveTab}: {setActiveTab: (tab: "To-Do" | "Completed" | "All") => void}){
+import type { TaskTab } from "../Types/Types";
+
+export default function TaskTabs({activeTab, setActiveTab}: {activeTab: TaskTab, setActiveTab: (tab: TaskTab) => void}){
     return (
         <div className="taskTabs">
-          <button onClick={() => setActiveTab("To-Do")}>
+          <button 
+          className={activeTab === "To-Do" ? "active" : ""}
+          onClick={() => setActiveTab("To-Do")}>
             To-Do
           </button>
 
-          <button onClick={() => setActiveTab("Completed")}>
+          <button 
+          className={activeTab === "Completed" ? "active" : ""}
+          onClick={() => setActiveTab("Completed")}>
             Completed
           </button>
 
-          <button onClick={() => setActiveTab("All")}>
+          <button 
+          className={activeTab === "All" ? "active" : ""}
+          onClick={() => setActiveTab("All")}>
             All Tasks
           </button>
         </div>

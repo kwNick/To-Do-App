@@ -77,67 +77,66 @@ const AddTaskPage = () => {
     // <AddTaskForm handleAddTask={handleAddTask} name={name} description={description} deadline={deadline}  deadlineTime={deadlineTime} priority={priority} error={error} setName={setName} setDescription={setDescription} setDeadline={setDeadline} setDeadlineTime={setDeadlineTime} setPriority={setPriority}/>
 
     <div className="addTaskForm">
-            <div>
-              <Link to="/tasks">Tasks</Link>
-            </div>
-            <h1>Add Task</h1>
+      <div className="tasksLink">
+        <Link to="/tasks">Tasks</Link>
+      </div>
+      <h1>Add Task</h1>
 
-            <form className="addTaskInput" onSubmit={(e) => {
-                e.preventDefault();
-                handleAddTask();
-                }}>
+      <form className="addTaskInput" onSubmit={(e) => {
+          e.preventDefault();
+          handleAddTask();
+          }}>
 
-                <input
-                type="text"
-                value={name}
-                required
-                onChange={(e) => {setName(e.target.value); setError("");}}
-                placeholder="Enter name"
-                />
+          <input
+          type="text"
+          value={name}
+          required
+          onChange={(e) => {setName(e.target.value); setError("");}}
+          placeholder="Enter name"
+          />
 
-                <input
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter description"
-                />
+          <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter description"
+          />
 
-                <div className="deadlineInput">
-                <input
-                    type="text"
-                    pattern="\d{2}/\d{2}/\d{4}"
-                    value={deadline}
-                    onChange={(e) => {setDeadline(e.target.value); setError("");}}
-                    placeholder="(MM/DD/YYYY)"
-                />
-                <input
-                    type="text"
-                    pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
-                    value={deadlineTime}
-                    onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
-                    placeholder="(HH:MM AM/PM)"
-                />
-                </div>
+          <div className="deadlineInput">
+          <input
+              type="text"
+              pattern="\d{2}/\d{2}/\d{4}"
+              value={deadline}
+              onChange={(e) => {setDeadline(e.target.value); setError("");}}
+              placeholder="(MM/DD/YYYY)"
+          />
+          <input
+              type="text"
+              pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
+              value={deadlineTime}
+              onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
+              placeholder="(HH:MM AM/PM)"
+          />
+          </div>
 
-                {/* <input
-                type="text"
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-                placeholder="Priority (Low, Medium, High)"
-                /> */}
-                <select value={priority} onChange={(e) => setPriority(e.target.value as Task["priority"])}>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-                </select>
+          {/* <input
+          type="text"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+          placeholder="Priority (Low, Medium, High)"
+          /> */}
+          <select value={priority} onChange={(e) => setPriority(e.target.value as Task["priority"])}>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+          </select>
 
-                <button type="submit">
-                    Add Task
-                </button>
-            </form>
-                {error && <p className="error">{error}</p>}
-
-        </div>
+          <button type="submit">
+              Add Task
+          </button>
+      </form>
+      {error && <p className="error">{error}</p>}
+    </div>
   );
 };
 export default AddTaskPage

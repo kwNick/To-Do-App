@@ -8,3 +8,5 @@ export interface Task {
   status: "In Progress" | "Expired";
   completed: boolean;
 };
+
+export type TaskTab = "To-Do" | "Completed" | "All";

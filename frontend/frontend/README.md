@@ -4,6 +4,8 @@
 
 - Change color theme, light and dark theme.
 
+- style the new react router setup.
+
 - Maybe have the status be "In Progress", "Expired" and "Completed" instead of extra type field. So there isn't two values to show on each task. Not Complete/Complete and Expired
 
 - Is it better to allow user to add a task that is already expired?
@@ -54,7 +56,7 @@ CURRENT APP
 
     ↓
 
-10. React Router
+10. React Router " ✓"
 
     ↓
 
