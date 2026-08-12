@@ -4,12 +4,11 @@
 
 - Change color theme, light and dark theme.
 
-- style the new react router setup.
-
-- Maybe have the status be "In Progress", "Expired" and "Completed" instead of extra type field. So there isn't two values to show on each task. Not Complete/Complete and Expired
+- Maybe have the status be "In Progress", "Expired" and "Completed" instead of extra type field. So there isn't two values to show on each task. Not Complete/Complete and Expired/In Progress.
 
 - Is it better to allow user to add a task that is already expired?
 
+- style the new react router setup. " ✓"
 - Seperate fetch logic and utility functions. " ✓"
 - Expired tasks have a symbol or mark on their component, something red. " ✓"
 - Completed tasks have a symbol or mark on their component, something green. " ✓"

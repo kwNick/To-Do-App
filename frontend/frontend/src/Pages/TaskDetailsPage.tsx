@@ -70,7 +70,7 @@ function TaskDetailsPage() {
             <p><strong>Deadline:</strong> {task.deadline} {task.deadlineTime}</p>
             <p><strong>Priority:</strong> {task.priority}</p>
             <p><strong>Status:</strong> {task.status}</p>
-            <p>{task.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete</strong>}</p>
+            <p>{task.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete <span style={{color: "red"}}>✕</span></strong>}</p>
           </div>
         ):(
           <p>Select a task to see details</p>
