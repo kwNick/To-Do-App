@@ -68,7 +68,7 @@ app.delete("/tasks/:id", (req, res) => {
 // POST endpoint
 app.post("/tasks", (req, res) => {
     const taskId = tasks.length !== 0 ? tasks[tasks.length - 1].id + 1 : 1;
-    // console.log("Received task:", req.body);
+    console.log("Received task:", req.body);
 
     const newTask = {
         id: taskId,

@@ -87,6 +87,8 @@ const AddTaskPage = () => {
           handleAddTask();
           }}>
 
+          <div className="labelInput">
+            <label>Name</label>
           <input
           type="text"
           value={name}
@@ -94,29 +96,37 @@ const AddTaskPage = () => {
           onChange={(e) => {setName(e.target.value); setError("");}}
           placeholder="Enter name"
           />
+          </div>
 
-          <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter description"
-          />
-
-          <div className="deadlineInput">
-          <input
-              type="text"
-              pattern="\d{2}/\d{2}/\d{4}"
-              value={deadline}
-              onChange={(e) => {setDeadline(e.target.value); setError("");}}
-              placeholder="(MM/DD/YYYY)"
-          />
-          <input
-              type="text"
-              pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
-              value={deadlineTime}
-              onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
-              placeholder="(HH:MM AM/PM)"
-          />
+          <div className="labelInput">
+            <label>Description</label>
+            <textarea
+            className="descriptionInput"
+            // type=""
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter description"
+            />
+          </div>
+          
+          <div className="labelInput">
+            <label>Deadline</label>
+            <div className="deadlineInput">
+            <input
+                type="text"
+                pattern="\d{2}/\d{2}/\d{4}"
+                value={deadline}
+                onChange={(e) => {setDeadline(e.target.value); setError("");}}
+                placeholder="(MM/DD/YYYY)"
+            />
+            <input
+                type="time"
+                pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
+                value={deadlineTime}
+                onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
+                placeholder="(HH:MM AM/PM)"
+            />
+            </div>
           </div>
 
           {/* <input
@@ -125,11 +135,14 @@ const AddTaskPage = () => {
           onChange={(e) => setPriority(e.target.value)}
           placeholder="Priority (Low, Medium, High)"
           /> */}
-          <select value={priority} onChange={(e) => setPriority(e.target.value as Task["priority"])}>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-          </select>
+          <div className="labelInput">
+            <label>Priority</label>
+            <select value={priority} onChange={(e) => setPriority(e.target.value as Task["priority"])}>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            </select>
+          </div>
 
           <button type="submit">
               Add Task

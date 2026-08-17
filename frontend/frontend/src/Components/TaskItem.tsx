@@ -35,7 +35,7 @@ export default function TaskItem({
             <p style={{width: "33%", maxWidth: "33%"}}>
               {/* Status: */}
               <span style={{color: "red"}}>
-                {task.status == "Expired" && " ❌ Expired" }
+                {task.status == "Expired" && " Expired" }
               </span>
               {/* <span style={{color: ""}}>
                 {task.status != "Expired" && " In Progress"}
