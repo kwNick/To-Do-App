@@ -121,7 +121,7 @@ const AddTaskPage = () => {
             />
             <input
                 type="time"
-                pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
+                // pattern="(\d{2}:\d{2}|\d{1}:\d{2})\s*(AM|PM)"
                 value={deadlineTime}
                 onChange={(e) => {setDeadlineTime(e.target.value); setError("");}}
                 placeholder="(HH:MM AM/PM)"
@@ -144,9 +144,11 @@ const AddTaskPage = () => {
             </select>
           </div>
 
-          <button type="submit">
+          <div className="addButton">
+            <button type="submit">
               Add Task
-          </button>
+            </button>
+          </div>
       </form>
       {error && <p className="error">{error}</p>}
     </div>

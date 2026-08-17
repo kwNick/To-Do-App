@@ -116,39 +116,46 @@ export default function TaskDetails({task}:{task: Task | null}){
           fetchTasksOnMount();
       }, []);
     return (
-      <div style={{width: "100vw", height: "100vh"}}>
+      <div className="taskDetails">
         <div>
           <button onClick={() => navigate(-1)}>
             Back
           </button>
         </div>
-        <div className="taskDetails">
           <h1>Task Details</h1>
+        {/* <div className="taskDetails"> */}
 
             {task ? (
               <div className="taskDetailsContent">
                 <div className="detail">
-                  <p><strong>Name:</strong> </p><p>{task.name}</p>
+                  <p><strong>Name:</strong> </p>
+                  <p>{task.name}</p>
                 </div>
                 <div className="detail">
-                  <p><strong>Description:</strong> </p><p>{task.description}</p>
+                  <p><strong>Description:</strong> </p>
+                  <p>{task.description}</p>
                 </div>
                 <div className="detail">
-                  <p><strong>Deadline:</strong> </p><p>{task.deadline} {task.deadlineTime} {task.deadlineTime.slice(0,3)}</p>
+                  <p><strong>Deadline:</strong> </p>
+                  <p>{task.deadline} {task.deadlineTime} {task.deadlineTime.slice(0,3)}</p>
                 </div>
                 <div className="detail">
-                  <p><strong>Priority:</strong> </p><p>{task.priority}</p>
+                  <p><strong>Priority:</strong> </p>
+                  <p>{task.priority}</p>
                 </div>
                 <div className="detail">
-                  <p><strong>Status:</strong> </p><p>{task.status}</p>
+                  <p><strong>Status:</strong> </p>
+                  <p>{task.status}</p>
                 </div>
-                <p>{task.completed ? <strong>Completed <span style={{color: "green"}}>✓</span></strong> : <strong>Incomplete</strong>}</p>
+                <p>{task.completed ?
+                  <strong>Completed <span style={{color: "green"}}>✓</span></strong> :
+                  <strong>Incomplete</strong>}</p>
               </div>
             ):(
               <p>Select a task to see details</p>
             )}
 
-        </div>
+        {/* </div> */}
         <div>
           {task && (
             <>
@@ -159,11 +166,11 @@ export default function TaskDetails({task}:{task: Task | null}){
                 handleFinishTask(task.id );
             }}
             >
-                {task.completed ? 'UnFinish' : 'Finish'}</button>   <button className="deleteButton" 
-                onClick={() => {
+            {task.completed ? 'UnFinish' : 'Finish'}</button>   <button className="deleteButton" 
+              onClick={() => {
                 // e.stopPropagation();
                 handleDeleteTask(task.id);
-                }}>
+              }}>
                 Delete
             </button>
             </>
