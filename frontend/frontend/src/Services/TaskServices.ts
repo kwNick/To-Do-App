@@ -1,71 +1,40 @@
-import { type Task } from "../Types/Types";
+import type { Task } from "../Types/Types";
 
-const API_URL = "http://localhost:3000/tasks";
+const API_URL = "http://localhost:3000";
 
-export const getTasks = async (): Promise<Task[]> => {
-    const response = await fetch(API_URL);
+const authHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
-    }
-
+const handleResponse = async (response: Response) => {
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    throw new Error(data?.message || "Request failed");
+  }
   return response.json();
 };
 
-export const getTask = async (id: string): Promise<Task> => {
-    const response = await fetch(`${API_URL}/${id}`);
+export const getTasks = async (): Promise<Task[]> =>
+  handleResponse(await fetch(`${API_URL}/tasks`, { headers: authHeaders() }));
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch task!");
-    }
+export const getTask = async (id: string): Promise<Task> =>
+  handleResponse(await fetch(`${API_URL}/tasks/${id}`, { headers: authHeaders() }));
 
-  return response.json();
-}
+export const createTask = async (task: Omit<Task, "id" | "userId">) =>
+  handleResponse(await fetch(`${API_URL}/tasks`, {
+    method: "POST", headers: authHeaders(), body: JSON.stringify(task)
+  }));
 
-// export const refreshTasks = async () => {
-//     const data = await getTasks();
-//     // setTasks(data);
-//     return data;
-//   };
+export const updateTask = async (id: number, updates: Partial<Task>) =>
+  handleResponse(await fetch(`${API_URL}/tasks/${id}`, {
+    method: "PATCH", headers: authHeaders(), body: JSON.stringify(updates)
+  }));
 
-export const createTask = async (task: Omit<Task, "id">) => {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(task),
-    });
-
-    if(!response.ok){
-        throw new Error("Failed to create task");
-    }
-
-    return response.json();
-}
-
-export const deleteTask = async (id: number) => {
-    const response = await fetch(`${API_URL}/${id}`,{
-        method: "DELETE",
-    });
-
-    if(!response.ok){
-        throw new Error("Failed to delete task");
-    }
-};
-
-export const updateTask = async (id: number, updates: Partial<Task>) => {
-    const response = await fetch(`${API_URL}/${id}`,{
-        method: "PATCH",
-        headers:{
-            "Content-Type": "application/json",
-        },
-        body:JSON.stringify(updates),
-    });
-
-    if(!response.ok){
-        throw new Error("Failed to update task");
-    }
-
-    return response.json();
-};
+export const deleteTask = async (id: number) =>
+  handleResponse(await fetch(`${API_URL}/tasks/${id}`, {
+    method: "DELETE", headers: authHeaders()
+  }));

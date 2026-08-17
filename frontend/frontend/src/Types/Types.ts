@@ -10,3 +10,6 @@ export interface Task {
 };
 
 export type TaskTab = "To-Do" | "Completed" | "All";
+
+export type User = { id: number; username: string; };
+export type LoginResponse = { token: string; user: User; };
