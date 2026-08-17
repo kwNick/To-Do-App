@@ -93,6 +93,26 @@ function TaskDetailsPage() {
           <p>Select a task to see details</p>
         )}
       {/* </div> */}
+      {/* <div>
+          {task && (
+            <>
+            <button 
+            className="finishButton" 
+            onClick={() => {
+                // e.stopPropagation();
+                handleFinishTask(task.id );
+            }}
+            >
+            {task.completed ? 'UnFinish' : 'Finish'}</button>   <button className="deleteButton" 
+              onClick={() => {
+                // e.stopPropagation();
+                handleDeleteTask(task.id);
+              }}>
+                Delete
+            </button>
+            </>
+          )}
+        </div> */}
     </div>
   );
 }
