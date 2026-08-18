@@ -14,13 +14,26 @@ function createTask(userId, data) {
   const taskId =
     tasks.length === 0 ? 1 : Math.max(...tasks.map(task => task.id)) + 1;
 
+    function formatTime(time) {
+      const [hours, minutes] = time.split(":");
+
+      const date = new Date();
+      date.setHours(Number(hours), Number(minutes), 0, 0);
+
+      return date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+    };
+
   const newTask = {
     id: taskId,
     userId,
     name: data.name,
     description: data.description || data.name,
     deadline: data.deadline || new Date().toLocaleDateString(),
-    deadlineTime: data.deadlineTime || "11:59 PM",
+    deadlineTime: data.deadlineTime ? formatTime(data.deadlineTime) : "11:59 PM",
     priority: data.priority || "Low",
     status: data.status || "In Progress",
     completed: false

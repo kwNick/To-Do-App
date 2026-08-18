@@ -67,7 +67,8 @@ async function loginUser(username, password) {
     },
     JWT_SECRET,
     {
-      expiresIn: "15m"
+      expiresIn: "15m",
+      
     }
   );
 

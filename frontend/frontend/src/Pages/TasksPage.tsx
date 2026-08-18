@@ -5,11 +5,13 @@ import { deleteTask, getTasks, updateTask } from "../Services/TaskServices";
 import TaskTabs from "../Components/TaskTabs";
 import TaskItem from "../Components/TaskItem";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [activeTab, setActiveTab] = useState<"To-Do" | "Completed" | "All">("To-Do");
     const [loading, setLoading] = useState(true);
+    const {logout} = useAuth();
 
     const filteredTasks = sortTasks(tasks).filter(task => {
         if(activeTab === "To-Do") {
@@ -132,7 +134,12 @@ const TasksPage = () => {
   return (
     <div className="App">
       <div className="taskList">
+
         <h1>Tasks</h1>
+
+        <button className="logoutButton" onClick={logout}>
+          Logout
+        </button>
 
         <TaskTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
 
