@@ -2,6 +2,12 @@
 // NOTE: Everything in this file is lost when the server restarts.
 // Passwords are stored as bcrypt hashes, never plaintext passwords.
 
-const users = [];
+const users = [
+    {
+        userId: 1,
+        username: "nick",
+        password: password123
+    },
+];
 
 module.exports = users;
